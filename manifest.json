@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "6.102 Clicker Monitor",
+  "version": "1.0",
+  "description": "Notifies you when a 6.102 Clicker question changes from closed to open",
+  "permissions": ["notifications", "storage", "tabs"],
+  "host_permissions": ["https://clicker.mit.edu/*"],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png",
+    "default_title": "6.102 Clicker Monitor"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://clicker.mit.edu/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["notification.mp3"],
+      "matches": ["https://clicker.mit.edu/*"]
+    }
+  ]
+}
