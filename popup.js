@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!tabs || tabs.length === 0) {
       statusElement.innerHTML = "<span style='color: #880000;'>Status: Not active</span><br>" +
         "<span style='font-size: 0.9em;'>Please open the 6.102 Clicker page first:</span><br>" +
-        "<span style='font-size: 0.9em;'>• Navigate to <a href='https://clicker.mit.edu/6.102/' target='_blank'>https://clicker.mit.edu/6.102/</a></span>";
+        "<span style='font-size: 0.9em;'>Navigate to <a href='https://clicker.mit.edu/6.102/' target='_blank'>https://clicker.mit.edu/6.102/</a></span>";
       return;
     }
     

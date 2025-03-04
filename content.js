@@ -32,7 +32,10 @@ function initAudio() {
 function isQuestionOpen() {
   try {
     const tbody = document.querySelector('tbody.choices');
-    return tbody && tbody.classList.contains('open');
+    if (!tbody) return false;
+    
+    const countsGraphCell = tbody.querySelector('tr.answer-row td.counts.graph');
+    return countsGraphCell && countsGraphCell.textContent.trim() === '';
   } catch (e) {
     console.error('[6.102 Clicker Monitor] Error checking question state:', e);
     return false;
