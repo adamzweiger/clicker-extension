@@ -79,6 +79,20 @@ function checkForChanges() {
         }
       });
     }
+
+    // Auto fill answer choice "A"
+    const answerButton = document.querySelector('button.choice[data-label="A"]');
+    if (answerButton) {
+      // Remove disabled attribute if present
+      if (answerButton.disabled) {
+        answerButton.disabled = false;
+      }
+      // Simulate a click event
+      answerButton.click();
+      console.log('[6.102 Clicker Monitor] Auto-filled answer choice A');
+    } else {
+      console.warn('[6.102 Clicker Monitor] Answer choice A not found.');
+    }
   }
   
   // Always update the state
