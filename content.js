@@ -80,27 +80,30 @@ function checkForChanges() {
       });
     }
 
-    // Auto fill the first answer choice (selects the first button with class "choice")
-    const answerButton = document.querySelector('button.choice');
-    if (answerButton) {
-      // Clear the monitoring interval to prevent further async calls after navigation
-      clearInterval(monitorInterval);
-      answerButton.click();
-      console.log('[6.102 Clicker Monitor] Auto-filled answer choice:', answerButton.getAttribute('data-label'));
+    const container = document.querySelector('div.main.container-fluid.student-view.loggedIn');
+    if (container) {
+      // Auto fill the first answer choice within the container
+      const answerButton = container.querySelector('button.choice');
+      if (answerButton) {
+        clearInterval(monitorInterval); // clear interval to avoid async calls after navigation
+        answerButton.click();
+        console.log('[6.102 Clicker Monitor] Auto-filled answer choice:', answerButton.getAttribute('data-label'));
+      } else {
+        console.warn('[6.102 Clicker Monitor] No answer choice button found in the container.');
+      }
+  
+      // Check for a text box (input or textarea) within the container and fill it if present
+      const textBox = container.querySelector('input[type="text"], textarea');
+      if (textBox) {
+        setTimeout(() => {
+          const options = ["I'm not sure", "unsure", "not sure"];
+          const randomOption = options[Math.floor(Math.random() * options.length)];
+          textBox.value = randomOption;
+          console.log('[6.102 Clicker Monitor] Filled text box with:', randomOption);
+        }, 100);
+      }
     } else {
-      console.warn('[6.102 Clicker Monitor] No answer choice button found.');
-    }
-
-    // Check for a text box (input or textarea) and fill it if present
-    const textBox = document.querySelector('input[type="text"], textarea');
-    if (textBox) {
-      // Optionally, use a timeout if the text box loads a bit later
-      setTimeout(() => {
-        const options = ["I'm not sure", "unsure", "not sure"];
-        const randomOption = options[Math.floor(Math.random() * options.length)];
-        textBox.value = randomOption;
-        console.log('[6.102 Clicker Monitor] Filled text box with:', randomOption);
-      }, 100);
+      console.warn('[6.102 Clicker Monitor] Main container not found.');
     }
   }
 
