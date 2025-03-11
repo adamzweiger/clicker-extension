@@ -80,21 +80,30 @@ function checkForChanges() {
       });
     }
 
-    // Auto fill answer choice "A"
-    const answerButton = document.querySelector('button.choice[data-label="A"]');
+    // Auto fill the first answer choice (selects the first button with class "choice")
+    const answerButton = document.querySelector('button.choice');
     if (answerButton) {
-      // Remove disabled attribute if present
-      if (answerButton.disabled) {
-        answerButton.disabled = false;
-      }
-      // Simulate a click event
+      // Clear the monitoring interval to prevent further async calls after navigation
+      clearInterval(monitorInterval);
       answerButton.click();
-      console.log('[6.102 Clicker Monitor] Auto-filled answer choice A');
+      console.log('[6.102 Clicker Monitor] Auto-filled answer choice:', answerButton.getAttribute('data-label'));
     } else {
-      console.warn('[6.102 Clicker Monitor] Answer choice A not found.');
+      console.warn('[6.102 Clicker Monitor] No answer choice button found.');
+    }
+
+    // Check for a text box (input or textarea) and fill it if present
+    const textBox = document.querySelector('input[type="text"], textarea');
+    if (textBox) {
+      // Optionally, use a timeout if the text box loads a bit later
+      setTimeout(() => {
+        const options = ["I'm not sure", "unsure", "not sure"];
+        const randomOption = options[Math.floor(Math.random() * options.length)];
+        textBox.value = randomOption;
+        console.log('[6.102 Clicker Monitor] Filled text box with:', randomOption);
+      }, 100);
     }
   }
-  
+
   // Always update the state
   lastOpenState = currentlyOpen;
 }
